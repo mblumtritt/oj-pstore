@@ -1,0 +1,18 @@
+PATH
+  remote: .
+  specs:
+    oj-pstore (0.0.1alpha)
+      oj
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    oj (2.1.0)
+    test-unit (2.5.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  oj-pstore!
+  test-unit
