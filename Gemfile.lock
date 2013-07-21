@@ -1,13 +1,13 @@
 PATH
   remote: .
   specs:
-    oj-pstore (0.0.1alpha)
+    oj-pstore (0.0.1)
       oj
 
 GEM
   remote: https://rubygems.org/
   specs:
-    oj (2.1.0)
+    oj (2.1.4)
     test-unit (2.5.5)
 
 PLATFORMS
