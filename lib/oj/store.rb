@@ -2,7 +2,7 @@ require 'pstore'
 require 'oj'
 
 class Oj::Store < ::PStore
-  
+
   attr_reader :obtions
 
   def initialize(file_name, options= {})
@@ -34,7 +34,7 @@ class Oj::Store < ::PStore
 
   EMPTY_MARSHAL_DATA = Oj.dump({}).freeze
   EMPTY_MARSHAL_CHECKSUM = Digest::MD5.digest(EMPTY_MARSHAL_DATA)
-  
-  autoload :VERSION, File.expand_path('../store/version', __FILE__)
+
+  autoload(:VERSION, File.expand_path('../store/version', __FILE__))
 
 end
