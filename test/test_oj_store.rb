@@ -1,12 +1,12 @@
-require 'test/unit'
+require 'minitest/autorun'
 require_relative '../lib/oj/store'
 
-class OjStoreTest < Test::Unit::TestCase
-  
+class OjStoreTest < Minitest::Test
+
   class SampleData
     attr_accessor :name, :number
   end
-  
+
   def setup
     @store_file = "oj-store.tmp.#{Process.pid}"
     @store_file2 = "oj-store.2.tmp.#{Process.pid}"
@@ -24,14 +24,14 @@ class OjStoreTest < Test::Unit::TestCase
       assert_nil @store[:bar]
     end
   end
-  
+
   def test_opening_new_file_in_readwrite_mode_should_result_in_empty_values
     @store.transaction do
       assert_nil @store[:foo]
       assert_nil @store[:bar]
     end
   end
-  
+
   def test_data_should_be_loaded_correctly_when_in_readonly_mode
     @store.transaction do
       @store[:foo] = 'bar'
@@ -40,7 +40,7 @@ class OjStoreTest < Test::Unit::TestCase
       assert_equal 'bar', @store[:foo]
     end
   end
-  
+
   def test_data_should_be_loaded_correctly_when_in_readwrite_mode
     @store.transaction do
       @store[:foo] = 'bar'
@@ -49,7 +49,7 @@ class OjStoreTest < Test::Unit::TestCase
       assert_equal 'bar', @store[:foo]
     end
   end
-  
+
   def test_changes_after_commit_are_discarded
     @store.transaction do
       @store[:foo] = 'bar'
@@ -60,7 +60,7 @@ class OjStoreTest < Test::Unit::TestCase
       assert_equal 'bar', @store[:foo]
     end
   end
-  
+
   def test_changes_are_not_written_on_abort
     @store.transaction do
       @store[:not_written] = 'just a value'
@@ -70,17 +70,17 @@ class OjStoreTest < Test::Unit::TestCase
       assert_nil @store[:not_written]
     end
   end
-  
+
   def test_writing_inside_readonly_transaction_raises_error
-    assert_raise(PStore::Error) do
+    assert_raises(PStore::Error) do
       @store.transaction(true) do
         @store[:foo] = 'bar'
       end
     end
   end
-  
+
   def test_thread_safe
-    assert_raise(PStore::Error) do
+    assert_raises(PStore::Error) do
       flag = false
       Thread.new do
         @store.transaction do
@@ -89,10 +89,12 @@ class OjStoreTest < Test::Unit::TestCase
           sleep 1
         end
       end
-      until flag; end
+      until flag
+        # nop
+      end
       @store.transaction {}
     end
-    assert_block do
+    begin
       pstore = PStore.new(@store_file2,true)
       flag = false
       Thread.new do
@@ -102,21 +104,25 @@ class OjStoreTest < Test::Unit::TestCase
           sleep 1
         end
       end
-      until flag; end
-      pstore.transaction { pstore[:foo] == 'bar' }
+      until flag
+        # nop
+      end
+      pstore.transaction do
+        assert(pstore[:foo] == 'bar')
+      end
     end
   end
-  
+
   def test_nested_transaction_raises_error
-    assert_raise(PStore::Error) do
+    assert_raises(PStore::Error) do
       @store.transaction { @store.transaction { } }
     end
     pstore = PStore.new(@store_file2, true)
-    assert_raise(PStore::Error) do
+    assert_raises(PStore::Error) do
       pstore.transaction { pstore.transaction { } }
     end
   end
-  
+
   def test_extended_data
     array= [1,2,3,4,'a','b','c']
     hash= {a: 42, b: :c, d: 'e', 'f' => 4711}
@@ -139,6 +145,6 @@ class OjStoreTest < Test::Unit::TestCase
       assert_equal s.name, @store[:sample].name
       assert_equal s.number, @store[:sample].number
     end
-    
+
   end
 end
