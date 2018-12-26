@@ -145,6 +145,5 @@ class OjStoreTest < Minitest::Test
       assert_equal s.name, @store[:sample].name
       assert_equal s.number, @store[:sample].number
     end
-
   end
 end
