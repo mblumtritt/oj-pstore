@@ -7,7 +7,7 @@ GemSpec = Gem::Specification.new do |spec|
   spec.description =
     'This gem implements a PStore alternative using the very fast Oj gem.'
   spec.author = 'Mike Blumtritt'
-  spec.email = 'mike.blumtritt@invision.de'
+  spec.email = 'mike.blumtritt@pm.me'
   spec.homepage = 'https://github.com/mblumtritt/oj-pstore'
   spec.metadata = {
     'issue_tracker' => 'https://github.com/mblumtritt/tcp-client/issues'
