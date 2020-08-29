@@ -10,9 +10,9 @@ GemSpec = Gem::Specification.new do |spec|
   spec.email = 'mike.blumtritt@pm.me'
   spec.homepage = 'https://github.com/mblumtritt/oj-pstore'
   spec.metadata = {
-    'issue_tracker' => 'https://github.com/mblumtritt/tcp-client/issues'
+    'source_code_uri' => 'https://github.com/mblumtritt/tcp-client',
+    'bug_tracker_uri' => 'https://github.com/mblumtritt/tcp-client/issues'
   }
-  spec.rubyforge_project = spec.name
 
   spec.add_dependency 'oj'
   spec.add_development_dependency 'minitest'

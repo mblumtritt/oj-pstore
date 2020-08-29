@@ -124,9 +124,9 @@ class OjStoreTest < Minitest::Test
   end
 
   def test_extended_data
-    array= [1,2,3,4,'a','b','c']
-    hash= {a: 42, b: :c, d: 'e', 'f' => 4711}
-    s= SampleData.new
+    array = [1,2,3,4,'a','b','c']
+    hash = {a: 42, b: :c, d: 'e', 'f' => 4711}
+    s = SampleData.new
     s.name = 'a name'
     s.number = 12345678
     @store.transaction do

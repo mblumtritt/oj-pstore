@@ -2,7 +2,7 @@ require 'pstore'
 require 'oj'
 
 class Oj::Store < PStore
-  VERSION = '0.0.3'.freeze
+  VERSION = '0.0.4'.freeze
 
   attr_reader :obtions
 
@@ -31,8 +31,8 @@ class Oj::Store < PStore
     EMPTY_MARSHAL_CHECKSUM
   end
 
-  private
-
   EMPTY_MARSHAL_DATA = Oj.dump({}).freeze
   EMPTY_MARSHAL_CHECKSUM = Digest::MD5.digest(EMPTY_MARSHAL_DATA)
+
+  private_constant(:EMPTY_MARSHAL_DATA, :EMPTY_MARSHAL_CHECKSUM)
 end
