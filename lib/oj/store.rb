@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'pstore'
 require 'oj'
 
 class Oj::Store < PStore
-  VERSION = '0.0.4'.freeze
+  VERSION = '0.0.5'
 
   attr_reader :obtions
 
